@@ -4,6 +4,9 @@ Hardware driver for the [Maxim DS3234 real time clock](Dallas/Maxim DS3234 real 
 
 ## Release Notes
 
+- 1.1.0
+    - Add *setCurrentDateAndTime()* method (uses the imp’s own RTC as a source)
+    - All *getDateAndTime()* to return date in Squirrel *date()* format
 - 1.0.4
     - Minor code change: rename constants to be class-specific
 - 1.0.3
@@ -27,9 +30,13 @@ This method sets up the imp SPI bus and initialises the DS3234. It should always
 
 This method takes imp-standard date and time values (as per the Squirrel *date()* function) and writes them to the DS3234.
 
-### getDateAndTime()
+### setCurrentDateAndTime()
 
-This method reads back the current date and time from the DS3234 and returns them as an array of values in the following order: seconds, minutes, hour, day of the week, day, month, year.
+This method writes the current date and time, as taken from the imp’s own battery-less RTC, to the DS3234.
+
+### getDateAndTime(*dateFormat*)
+
+This method reads back the current date and time from the DS3234 and returns them. If the value passed into *dateFormat* is `true`, the date and time are returned as a table that matches the one returned by Squirrel’s *date()* function, otherwise the method returns an array of values in the following order: seconds, minutes, hour, day of the week, day, month, year. *dateFormat* defaults to `false` for backwards compatibility.
 
 ## License
 
